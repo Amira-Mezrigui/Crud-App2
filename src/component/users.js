@@ -13,6 +13,7 @@ class Users extends React.Component {
         };
 
       }
+  // Get request
     componentDidMount(){
         axios.get("http://localhost:3000/posts")
         .then(response =>{
@@ -20,18 +21,36 @@ class Users extends React.Component {
             console.log(response.data)
         })   
     }
+        // Adding a Post Request
+        handleNameChange = event => {
+          this.setState({ name: event.target.value });
+        }
+      handleUserNameChange = event => {
+          this.setState({ userName: event.target.value });
+        }
+      addUser = event => {
+          window.location.reload(true)
+          event.preventDefault();
+          axios.post("http://localhost:3000/posts", {
+              "name": this.state.name,
+              "username": this.state.userName   
+          })
+            .then(response =>{
+              console.log(response.data)
+          })
+        }
     render() {
         return(
 <div className="container">
     <div>
     <form className="form">
         <label> Name:
-            <input type="text" name="name" />
+            <input type="text" name="name" value={this.state.name} onChange={this.handleNameChange}/>
         </label>
         <label> UserName:
-            <input type="text" name="username"  />
+            <input type="text" name="username"   value={this.state.userName} onChange={this.handleUserNameChange}/>
         </label>
-        <button type="submit">Add</button>
+        <button type="submit" onClick={this.addUser}>Add</button>
     </form>
     </div>
     <div>
