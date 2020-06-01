@@ -39,6 +39,15 @@ class Users extends React.Component {
               console.log(response.data)
           })
         }
+        // Adding delete request
+        removeUser = (x) => {
+          window.location.reload(true)
+          axios.delete("http://localhost:3000/posts/"+x)
+            .then(response => {
+              
+              console.log(response.data);
+            })
+        }
     render() {
         return(
 <div className="container">
@@ -70,7 +79,7 @@ class Users extends React.Component {
            <td>{x.username}</td>
            <td>
              <button>Edit</button>
-             <button className="btnR">Delete</button>
+             <button className="btnR" onClick={()=>this.removeUser(x.id)}>Delete</button>
            </td>
          </tr>)
           })}
